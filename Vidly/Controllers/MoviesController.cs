@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Vidly.Models;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -17,36 +18,20 @@ namespace Vidly.Controllers
             {
                 Name = "Test"
             };
-            return View(movie);
-            //return Content("Yo");
-            //return HttpNotFound();
-            //return new EmptyResult();
-        }
 
-        public ActionResult Edit(int id)
-        {
-            return Content("ID: " + id);
-        }
-
-        public ActionResult Index(int? pageIndex, string sortBy)
-        {
-            if (!pageIndex.HasValue)
+            var customers = new List<Customer>
             {
-                pageIndex = 1;
-            }
+                new Customer { Name = "Jafar" },
+                new Customer { Name = "Hasan" }
+            };
 
-            if (String.IsNullOrWhiteSpace(sortBy))
+            var viewModel = new RandomMovieViewModel()
             {
-                sortBy = "Name";
-            }
+                Movie = movie,
+                Customers = customers
+            };
 
-            return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
-        }
-
-        [Route("movies/release/year/{month:regex(\\d{2}):range(1, 12)}")]
-        public ActionResult ReleaseByDate(int year, int month)
-        {
-            return Content(year + "/" + month);
+            return View(viewModel);
         }
     }
 }
