@@ -10,9 +10,5 @@ namespace Oceans.Models
     public class AppDbContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
-        public AppDbContext()
-        {
-            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
-        }
     }
 }
